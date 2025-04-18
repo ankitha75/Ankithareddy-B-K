@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern File Upload Previewer</title>
+   <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-m4jWuvIRKBk0UT1iJKPibU6e5uBjRVlR5gL4TLN7axgZ1uV6it+ys2W9l8stHjzRVePx3i8rd6BG9JCn2jsMyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      overflow: hidden;
+      color: white;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .upload-container {
+      position: relative;
+      width: 400px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .upload-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      z-index: 0;
+      animation: spin 8s linear infinite;
+      opacity: 0.5;
+      filter: blur(50px);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .upload-box {
+      position: relative;
+      z-index: 1;
+      padding: 30px;
+      border: 2px dashed #ffffff99;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .upload-box:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .upload-box i {
+      font-size: 60px;
+      color: #ffffffdd;
+    }
+
+    .upload-box p {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #ffffffcc;
+    }
+
+    .preview-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .preview-container img {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .buttons button i {
+      font-size: 16px;
+    }
+
+    .buttons button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+    }
+
+    @media (max-width: 480px) {
+      .upload-container {
+        width: 90%;
+        padding: 20px;
+      }
+      .upload-box i {
+        font-size: 40px;
+      }
+      .buttons button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Modern File Upload Previewer</h1>
+
+<div class="upload-container">
+  <div class="upload-box" id="uploadBox">
+    <i class="fas fa-cloud-upload-alt"></i>
+    <p>Drag & Drop or Click to Upload</p>
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+  </div>
+
+  <div class="preview-container" id="previewContainer">
+    <img id="previewImage" alt="Image Preview">
+  </div>
+
+  <div class="buttons">
+    <button id="resetBtn"><i class="fas fa-redo-alt"></i> Reset</button>
+    <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
+  </div>
+</div>
+
+<script>
+  const uploadBox = document.getElementById('uploadBox');
+  const fileInput = document.getElementById('fileInput');
+  const previewContainer = document.getElementById('previewContainer');
+  const previewImage = document.getElementById('previewImage');
+  const resetBtn = document.getElementById('resetBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  // Open file input on click
+  uploadBox.addEventListener('click', () => fileInput.click());
+
+  // Handle file upload
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewContainer.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Reset functionality
+  resetBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    previewContainer.style.display = 'none';
+    previewImage.src = '';
+  });
+
+  // Download functionality
+  downloadBtn.addEventListener('click', () => {
+    if (previewImage.src) {
+      const link = document.createElement('a');
+      link.href = previewImage.src;
+      link.download = 'downloaded-image.png';
+      link.click();
+    } else {
+      alert('No image to download!');
+    }
+  });
+</script>
+
+</body>
+</html>

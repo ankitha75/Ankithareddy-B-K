@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+     <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+    <style>
+        body {
+            margin: 0;
+            font-family:cambria;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2d3436, #00cec9);
+        }
+
+        .tracker-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tracker-header {
+            font-size: 2.5rem;
+         
+            color: #2d3436;
+            margin-bottom:10px;
+        }
+
+        .pie-chart {
+            position: relative;
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
+        }
+
+        .pie-chart canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .balance, .history {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #2d3436;
+        }
+
+        .expense-form {
+            margin-top: 20px;
+        }
+
+        .expense-form input, .expense-form select, .expense-form button {
+            margin: 5px 0;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .expense-form button {
+            background: #00cec9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .expense-form button:hover {
+            background: #2d3436;
+        }
+
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .icon-income {
+            color: #00b894;
+        }
+
+        .icon-expense {
+            color: #d63031;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="tracker-container">
+        <div class="tracker-header">Budget Tracker</div>
+        <div class="pie-chart">
+            <canvas id="budgetPieChart"></canvas>
+        </div>
+        <div class="balance" id="balance">Balance: $0</div>
+        <div class="history">
+            <h3>Transaction History</h3>
+            <ul id="transactionList"></ul>
+        </div>
+        <form class="expense-form" id="expenseForm">
+            <div>
+                <input type="number" id="amount" placeholder="Amount" required />
+            </div>
+            <div>
+                <select id="category" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Add Entry</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('budgetPieChart').getContext('2d');
+
+        // Load data from localStorage
+        let income = parseFloat(localStorage.getItem('income')) || 0;
+        let expense = parseFloat(localStorage.getItem('expense')) || 0;
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+        // Update balance and chart
+        function updateBalance() {
+            const balance = income - expense;
+            document.getElementById('balance').innerText = `Balance: $${balance.toFixed(2)}`;
+            budgetPieChart.update();
+        }
+
+        // Update transaction history
+        function updateTransactionHistory() {
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+            transactions.slice().reverse().forEach((transaction, index) => {
+                const li = document.createElement('li');
+                li.classList.add('transaction');
+                li.innerHTML = `
+                    <span class="${transaction.type === 'income' ? 'icon-income' : 'icon-expense'}">
+                        ${transaction.type === 'income' ? '+' : '-'} $${transaction.amount.toFixed(2)}
+                    </span>
+                    <span>${transaction.category}</span>
+                `;
+                transactionList.appendChild(li);
+            });
+        }
+
+        // Initialize the chart
+        const data = {
+            labels: ['Income', 'Expenses'],
+            datasets: [{
+                data: [income, expense],
+                backgroundColor: ['#00b894', '#d63031'],
+                hoverOffset: 4
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        };
+
+        const budgetPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+
+        // Form submit handler
+        document.getElementById('expenseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const category = document.getElementById('category').value;
+
+            // Handle the amount input
+            if (category === 'income') {
+                income += amount;
+                transactions.push({ type: 'income', amount, category });
+            } else {
+                expense += amount;
+                transactions.push({ type: 'expense', amount, category });
+            }
+
+            // Save data to localStorage
+            localStorage.setItem('income', income);
+            localStorage.setItem('expense', expense);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+
+            // Update the balance, chart, and transaction history
+            updateBalance();
+            updateTransactionHistory();
+
+            // Reset form
+            e.target.reset();
+        });
+
+        // Initial updates
+        updateBalance();
+        updateTransactionHistory();
+    </script>
+</body>
+</html>

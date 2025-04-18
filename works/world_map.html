@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Dynamic World Map</title>
+   <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    #map {
+      width: 90%;
+      height: 90%;
+      border-radius: 15px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    }
+    .leaflet-popup-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .leaflet-popup-content img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+    .icon-marker {
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 126, 95, 0.7);
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([20, 0], 2);
+
+    // Add Tile Layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Custom Icon
+    const icon = L.divIcon({
+      className: 'icon-marker',
+      iconSize: [20, 20],
+    });
+
+    // Data points
+    const locations = [
+      { lat: 40.7128, lng: -74.0060, name: 'Chitradurga', img: 'https://via.placeholder.com/30' },
+      { lat: 48.8566, lng: 2.3522, name: 'Paris', img: 'https://via.placeholder.com/30' },
+      { lat: 35.6895, lng: 139.6917, name: 'Tokyo', img: 'https://via.placeholder.com/30' },
+      { lat: -33.8688, lng: 151.2093, name: 'Sydney', img: 'https://via.placeholder.com/30' },
+      { lat: 55.7558, lng: 37.6173, name: 'Moscow', img: 'https://via.placeholder.com/30' },
+      { lat: 28.6139, lng: 77.2090, name: 'New Delhi, India', img: 'https://via.placeholder.com/30' },
+      { lat: 24.8607, lng: 67.0011, name: 'Karachi, Pakistan', img: 'https://via.placeholder.com/30' }
+    ];
+
+    // Add markers with popups
+    locations.forEach(location => {
+      const marker = L.marker([location.lat, location.lng], { icon }).addTo(map);
+      marker.bindPopup(`
+        <div>
+          <img src="${location.img}" alt="${location.name}" />
+          <span>${location.name}</span>
+        </div>
+      `);
+    });
+  </script>
+</body>
+</html>

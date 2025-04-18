@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <title>Premium Work Showcase</title>
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f1c, #23233a);
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, p {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+     margin-top:10px;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1.5s forwards;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      color: #f39c12;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #f39c12;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0 1rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: #f39c12;
+      color: #000;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      position: relative;
+      margin-top: 70px; /* Accounts for fixed navbar */
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+
+.cta {
+  margin-bottom: 50px; /* Adjusted margin */
+  padding: 1rem 2rem;
+  color: #fff;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 20px; /* Add right margin to increase gap */
+}
+
+    .cta:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+
+    /* Portfolio Section */
+    .portfolio {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, #23233a, #0f0f1c);
+    }
+
+    .portfolio h2 {
+      margin-bottom: 2rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+ 
+
+    .project-card-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .project-card-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #f39c12;
+    }
+
+    .project-card-content p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+
+.editor-title {
+  font-size: 20px;             /* Adjust size as needed */
+  color: #f39c12;;              /* Dark blue tone */
+  font-family: 'Poppins', sans-serif; /* Clean, modern font */
+  font-weight: 600;            /* Semi-bold */
+  text-align: center;          /* Optional: center alignment */
+  margin-bottom: 20px;         /* Spacing below */
+}
+
+  .learn-more-btn {
+    position: relative;
+    display: inline-block;
+    padding: 15px 40px;
+    background: #f39c12;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    text-decoration: none; /* removes underline */
+  }
+
+  .learn-more-btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #18264c;
+    border-radius: 50px;
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .learn-more-btn:hover::before {
+    transform: scaleX(1);
+  }
+
+  .learn-more-btn span {
+    position: relative;
+    z-index: 1;
+    transition: color 0.4s ease;
+  }
+
+  .learn-more-btn:hover span {
+    color: #fff;
+  }
+
+    .fa-solid {
+      margin-right: 10px;
+      gap: 18%;
+      font-size: 20px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #000;
+      color: #fff;
+    }
+
+    footer a {
+      color: #f39c12;
+      text-decoration: none;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">My Portfolio</div>
+    <ul>
+      <li><a href="#hero"> <i class="fa-solid fa-house"></i>Home</a></li> 
+      <li><a href="Protofilo_web_page.html"> <i class="fa-solid fa-list-check"></i>Projects</a></li>
+      <li><a href="Contact_Me.html"> <i class="fa-solid fa-phone"></i>Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div>
+      <h1>Welcome to My Portfolio</h1>
+      <p>Discover projects crafted with passion and precision. I specialize in creating dynamic, visually appealing designs that enhance user experiences. Whether it's a website, an app, or an interactive UI, I bring creativity and technical expertise to every project.</p>
+      <a href="#portfolio" class="cta">Explore My Work</a>
+      
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="portfolio">
+    <h2>My Projects</h2>
+    <div class="projects">
+      <!-- Card 1 -->
+      <div class="project-card">
+      
+        <div class="project-card-content">
+          <h3>Project 1</h3>
+            <h2 class="editor-title">3D Image Editor</h2>
+          <p>A brief description of this amazing project.</p>
+          <a href="works/3D_Image_Editor.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+
+<!-- Card 2 -->
+  <div class="project-card">
+ 
+  <div class="project-card-content">
+    <h3>Project 2</h3>
+    <h2 class="editor-title">AI Powered Chatbot</h2>    
+       <p>The future of support is here — fast, friendly, and AI-powered.</p>
+      <a href="works/AI_Powered_Chatbot.html" class="learn-more-btn"><span>Learn More</span></a>
+     </div>
+    </div>
+
+      <!-- Card 3 -->
+      <div class="project-card">
+   
+        <div class="project-card-content">
+          <h3>Project 3</h3>
+          <h2 class="editor-title">Budget tracker</h2>    
+          <p>A budget tracker is a simple tool to track, and control your spending in real time.</p>
+           <a href="works/Budget_trackers.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+
+<!-- Card 4 -->
+  <div class="project-card">
+  
+     <div class="project-card-content">
+      <h3>Project 4</h3>
+      <h2 class="editor-title">Dark Mode to Light Mode</h2>    
+      <p>Switch between dark mode and light mode for a comfortable viewing.</p>
+       <a href="works/Dark_mode.html" class="learn-more-btn"><span>Learn More</span></a>
+ </div>
+</div>
+
+
+  <!-- Card  -->
+      <div class="project-card">
+       
+        <div class="project-card-content">
+          <h3>Project 5</h3>
+            <h2 class="editor-title">Calculator </h2>   
+          <p>A calculator helps you quickly solve basic math problems.</p>
+          <a href="works/Calculator_website.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+
+  <!-- Card  -->
+      <div class="project-card">
+     
+        <div class="project-card-content">
+          <h3>Project 6</h3>
+          <h2 class="editor-title">Calendars </h2>   
+          <p>A calendar helps you keep track of dates, events, and appointments.</p>
+         <a href="works/calender.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      
+    </div>
+
+<!-- Card  -->
+      <div class="project-card">
+        
+        <div class="project-card-content">
+          <h3>Project 7</h3>
+           <h2 class="editor-title">File Upload Previewer</h2> 
+          <p>Upload your file and see a quick preview before submitting.</p>
+           <a href="works/File_Upload_Previewer.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+     </div>
+
+<!-- Card  -->
+      <div class="project-card">
+       
+        <div class="project-card-content">
+          <h3>Project 8</h3>
+          <h2 class="editor-title">Horoscope Dashboard</h2> 
+          <p>See your daily, weekly, and monthly horoscope at a glance.</p>
+            <a href="works/Horoscope_dashboard.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+    </div>
+
+  <!-- Card  -->
+      <div class="project-card">
+       
+        <div class="project-card-content">
+          <h3>Project 9</h3>
+          <h2 class="editor-title">Linebar Chart Generator</h2> 
+          <p>Create clear and interactive line and bar charts in seconds.</p>
+            <a href="works/Line_bar_chart_generator.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+
+
+ <!-- Card  -->
+      <div class="project-card">
+      
+        <div class="project-card-content">
+          <h3>Project 10</h3>
+          <h2 class="editor-title">Recipe App </h2> 
+          <p>Discover and cook delicious recipes anytime, anywher, and tasty meals.</p>
+            <a href="works/Recipe_app.html" class="learn-more-btn"><span>Learn More</span></a>
+      </div>
+    </div>
+
+ <!-- Card  -->
+      <div class="project-card">
+   
+        <div class="project-card-content">
+          <h3>Project 11</h3>
+         <h2 class="editor-title">Temperature Converter</h2> 
+          <p>DQuickly convert between Celsius, Fahrenheit, and Kelvin.</p>
+            <a href="works/Temperature_Converter.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+
+
+
+ <!-- Card  -->
+      <div class="project-card">
+      
+        <div class="project-card-content">
+          <h3>Project 12</h3>
+       <h2 class="editor-title">World Map</h2> 
+          <p>The world in your hands, one map at a time.Connect the dots across continents.</p>
+            <a href="works/world_map.html" class="learn-more-btn"><span>Learn More</span></a>
+        </div>
+      </div>
+    </div>
+</div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Crafted with by <a href="#">Ankitha B.K</a> &copy; 2025</p>
+  </footer>
+</body>
+</html>

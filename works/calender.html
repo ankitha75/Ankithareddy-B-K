@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 3D Calendar</title>
+     <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family:cambria;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #c01000, #988c25);
+        }
+
+        .calendar-container {
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .calendar {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background-color: #252525;
+            color: #fff;
+            padding:25px;
+             
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size:18px;
+        }
+
+        .header .month {
+            font-weight: bold;
+        }
+
+        .header .icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header .icons i {
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .header .icons i:hover {
+            transform: scale(1.2);
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .days div {
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .days div:hover {
+            transform: scale(1.1);
+            background-color: #5f6368;
+            color: white;
+        }
+
+        .days div.active {
+            background-color: #2575fc;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 10px;
+            background-color: #252525;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .calendar {
+                transform: translateY(0);
+            }
+
+            .header {
+                font-size: 1rem;
+            }
+
+            .days div {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calendar-container">
+        <div class="calendar">
+            <div class="header">
+                <div class="month" id="month-name">January 2025</div>
+                <div class="icons">
+                    <i class="fas fa-chevron-left prev" onclick="changeMonth(-1)"></i>
+                    <i class="fas fa-chevron-right next" onclick="changeMonth(1)"></i>
+                </div>
+            </div>
+            <div class="days" id="calendar-days">
+                <!-- Days of the week -->
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+                <!-- Calendar Days (Dynamically Generated) -->
+            </div>
+            <div class="footer">
+                <p>Interactive Calendar App</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        const calendarDaysContainer = document.getElementById('calendar-days');
+        const monthName = document.getElementById('month-name');
+
+        function renderCalendar() {
+            calendarDaysContainer.innerHTML = `
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            `;
+
+            const firstDay = new Date(currentYear, currentMonth).getDay();
+            const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const prevMonthLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+            // Fill in the previous month's empty spaces
+            for (let i = firstDay - 1; i >= 0; i--) {
+                calendarDaysContainer.innerHTML += `<div class="empty-day">${prevMonthLastDate - i}</div>`;
+            }
+
+            // Fill in the current month's days
+            for (let day = 1; day <= lastDate; day++) {
+                calendarDaysContainer.innerHTML += `<div class="day" onclick="selectDay(${day})">${day}</div>`;
+            }
+
+            // Update month name
+            monthName.textContent = `${new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} ${currentYear}`;
+        }
+
+        function selectDay(day) {
+            const allDays = document.querySelectorAll('.day');
+            allDays.forEach(dayEl => dayEl.classList.remove('active'));
+
+            const selectedDay = document.querySelector(`.day:nth-child(${7 + day})`);
+            if (selectedDay) selectedDay.classList.add('active');
+        }
+
+        function changeMonth(offset) {
+            currentMonth += offset;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+
+        renderCalendar();
+    </script>
+
+</body>
+</html>

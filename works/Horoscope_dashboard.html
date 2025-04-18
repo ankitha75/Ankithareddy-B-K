@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Horoscope Dashboard</title>
+   <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #380653, #0c8674);
+      background-size: 200% 200%;
+      animation: bgAnimation 4s infinite;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: #f4f4f4;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .card p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      background: #510e4e86;
+      border-radius: 50px;
+      transition: background 0.3s ease;
+    }
+
+    .card a:hover {
+      background: #510348;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 15px;
+      }
+
+      .card i {
+        font-size: 40px;
+      }
+
+      .card h3 {
+        font-size: 20px;
+      }
+
+      .card p {
+        font-size: 14px;
+      }
+
+      .card a {
+        font-size: 12px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Personalized Horoscope</h1>
+    <p>Discover your daily insights and empower your day with cosmic guidance.</p>
+  </header>
+  <div class="dashboard">
+    <!-- Aries Card -->
+    <div class="card">
+      <i class="fas fa-fire"></i>
+      <h3>Aries</h3>
+      <p>Today is a great day to take on new challenges. Trust your instincts and forge ahead boldly.</p>
+      <a href="https://www.astrology.com/horoscope/daily/aries.html" target="_blank">More Info</a>
+    </div>
+
+    <!-- Taurus Card -->
+    <div class="card">
+      <i class="fas fa-seedling"></i>
+      <h3>Taurus</h3>
+      <p>Focus on your goals, and don’t let minor distractions sway you from your path to success.</p>
+      <a href="https://www.astrology.com/horoscope/daily/taurus.html" target="_blank">More Info</a>
+    </div>
+
+    <!-- Gemini Card -->
+    <div class="card">
+      <i class="fas fa-wind"></i>
+      <h3>Gemini</h3>
+      <p>Communication is key today. Share your and listen to others for new perspectives.</p>
+      <a href="https://www.astrology.com/horoscope/daily/gemini.html" target="_blank">More Info</a>
+    </div>
+
+    <!-- Cancer Card -->
+    <div class="card">
+      <i class="fas fa-water"></i>
+      <h3>Cancer</h3>
+      <p>Take time to nurture your relationships. A little care goes a long way in strengthening bonds.</p>
+      <a href="https://www.astrology.com/horoscope/daily/cancer.html" target="_blank">More Info</a>
+    </div>
+
+    <!-- Leo Card -->
+    <div class="card">
+      <i class="fas fa-sun"></i>
+      <h3>Leo</h3>
+      <p>Your confidence shines today. Use it to inspire those around you and lead with charisma.</p>
+      <a href="https://www.astrology.com/horoscope/daily/leo.html" target="_blank">More Info</a>
+    </div>
+
+    <!-- Virgo Card -->
+    <div class="card">
+      <i class="fas fa-leaf"></i>
+      <h3>Virgo</h3>
+      <p>Attention to detail will be your strength. Organize your tasks and take them on one at a time.</p>
+      <a href="https://www.astrology.com/horoscope/daily/virgo.html" target="_blank">More Info</a>
+    </div>
+  </div>
+</body>
+</html>

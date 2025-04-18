@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume</title>
+   <link rel="icon" href="images/Bk_logo.png" type="image/favicon.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="Advanced 3D Dynamic Resume_01.css">
+</head>
+<body class="light-theme">
+
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+<div class="navbar">
+  <div class="nav-links right">
+    <a href="#"><i class="fas fa-home"></i> Home</a>
+    <a href="#"><i class="fas fa-user"></i> About</a>
+    <a href="Work_showcase.html"><i class="fas fa-briefcase"></i> Portfolio</a>
+    <a href="Contact_Me.html"><i class="fas fa-envelope"></i> Contact</a>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="header">
+      <div class="profile-pic">
+        <img src="images/About pic.jpg" alt="Profile Picture">
+      </div>
+      <div class="about">
+        <h1>Ankitha B.K.</h1>
+        <p>Graphic & Web Designer from India</p>
+        <p>Passionate about creativity and design innovation.</p>
+      </div>
+    </div>
+
+    <div class="section" id="skills-info">
+      <h2>Skills & Information </h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Education</h3>
+          <ul>
+            <li>🎓 High school at Vishwa Manava Vidya Samsthe, Seebara Guttinadu</li>
+            <li>📖 Professional course in Graphic & Web Design at Nanasu Institute Animation, Chitradurga</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Soft Skills</h3>
+          <ul>
+            <li>🎨 Corel Draw</li>
+            <li>🖌 Photoshop</li>
+            <li>💻 Visual Studio</li>
+            <li>🌐 HTML</li>
+            <li>🎭 CSS</li>
+            <li>⚡ JavaScript Basic</li>
+            <li>🔗 GitHub</li>
+            <li>🚀 Node.js</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Technical Skills</h3>
+          <ul>
+            <li>🖼 Flyers</li>
+            <li>📺 Web Ads</li>
+            <li>📑 Brochures</li>
+            <li>📜 Menu Cards</li>
+            <li>🐱 Cartoon Designs</li>
+            <li>📏 Templates</li>
+            <li>🖼 Posters</li>
+            <li>😊 live sketch Drawing</li> 
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Designed with by Ankitha B.K. | <a href="https://github.com/ankithabk">GitHub</a></p>
+  </footer>
+
+  <script>
+    // Remove the toggleTheme function as the theme switch button has been removed
+  </script>
+
+</body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #68e2d2, #2f834b);
+    background-size: 400% 400%;
+    animation: gradientBG 8s ease infinite;
+    color: white;
+    overflow-x:hidden;
+    position: relative;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  header, footer {
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  header h1, footer p {
+    margin: 0;
+  }
+
+.navbar {
+  display: flex;
+  justify-content: flex-end; /* Move links to the right */
+  align-items: center;
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: background 0.3s ease-in-out;
+ margin-top:20px ;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease-in-out, color 0.3s;
+}
+
+.nav-links a:hover {
+  transform: scale(1.1);
+  color: #213738;
+}
+
+
+  .container {
+    width: 90%;
+    height: 70%;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    margin-top: 100px;
+    margin-left: 80px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; /* Makes the image circular */
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: zoomInOut 5s infinite alternate ease-in-out; /* Apply the zoom-in and zoom-out animation */
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the circle without distortion */
+}
+
+
+  .about {
+    margin-left: 20px;
+  }
+
+  .about h1 {
+    font-size: 2.5rem;
+    margin-top: 30px;
+margin-left:20px ;
+    background: linear-gradient(90deg, #900c89, #132608);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .about p {
+    font-size: 1.2rem;
+    margin-left:20px ;
+  }
+
+  .section {
+    margin-top: 80px;
+  }
+
+  .section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ece9f2;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: transparent;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.484);
+    color: #ece9f2;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    color: rgb(3, 3, 62);
+  }
+
+  .card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card ul li {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    color: rgb(6, 8, 44);
+  }
+
+  footer p {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  footer a {
+    color: #112e34;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .about {
+      margin-left: 0;
+    }
+
+    .section {
+      flex-direction: column;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .circle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: zoomCircles 5s infinite alternate ease-in-out;
+  }
+
+  .circle:nth-child(1) { top: 10%; left: 10%; animation-duration: 6s; }
+  .circle:nth-child(2) { top: 50%; left: 30%; animation-duration: 8s; }
+  .circle:nth-child(3) { top: 70%; left: 70%; animation-duration: 10s; }
+  .circle:nth-child(4) { top: 30%; left: 80%; animation-duration: 12s; }
+
+  @keyframes zoomCircles {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.5); }
+  }
+
+</style>
+
+
+
